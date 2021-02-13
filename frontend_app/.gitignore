@@ -59,4 +59,4 @@ buck-out/
 /ios/Pods/
 
 # tempoints
-frontend_app/android/app/src/main/AndroidManifest.xml
+android/app/src/main/AndroidManifest.xml
