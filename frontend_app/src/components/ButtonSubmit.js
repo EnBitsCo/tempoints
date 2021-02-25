@@ -50,7 +50,10 @@ export default class ButtonSubmit extends Component {
       //Actions.bienvenidaScreen();
       //Actions.geofencing();
       //Actions.salesScreen();
-      Actions.messagingScreen();
+      //Actions.messagingScreen();
+      //Actions.contacts();
+      //Actions.profile();
+      Actions.stackNavigator();
       this.setState({isLoading: false});
       this.buttonAnimated.setValue(0);
       this.growAnimated.setValue(0);

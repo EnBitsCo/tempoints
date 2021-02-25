@@ -8,11 +8,16 @@ import CrearSolicitudServicioScreen from './CrearSolicitudServicioScreen';
 import Geofence from './Geofence';
 import GeofencingScreen from './GeofencingScreen';
 import SalesScreen from './SalesScreen';
-import MessagingScreen from './MessagingScreen';
+import MessagingScreen from './messaging/MessagingScreen';
+import Contacts from './contactList/screens/Contacts';
+import Profile from './contactList/screens/Profile';
+import StackNavigator, { AppNavigator } from './contactList/routes';
 
 export default class Main extends Component {
 
   render() {
+	return <AppNavigator />
+	{/*
 	  return (
 	    <Router>
 	      <Scene key="root">
@@ -57,8 +62,19 @@ export default class Main extends Component {
 	          animation='fade'
 	          hideNavBar={true}
 	        />
+			<Scene key="contacts"
+	          component={Contacts}
+	          animation='fade'
+	          hideNavBar={true}
+	        />
+			<Scene key="profile"
+	          component={Profile}
+	          animation='fade'
+	          hideNavBar={true}
+	        />
 	      </Scene>
-	    </Router>
+		</Router>
 	  );
+	  */}
 	}
 }
