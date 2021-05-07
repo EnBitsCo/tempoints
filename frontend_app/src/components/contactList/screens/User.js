@@ -6,51 +6,61 @@ import ContactThumbnail from '../components/ContactThumbnail';
 
 import colors from '../utils/colors';
 import { fetchUserContact } from '../utils/api';
+import store from '../store';
 
 export default class User extends React.Component {
     state = {
-        user: [],
-        loading: true,
-        error: false,
+        user: store.getState().user,
+        loading: store.getState().isFetchingUser,
+        error: store.getState().error,
     };
 
     async componentDidMount() {
-        try {
-            const user = await fetchUserContact();
-
+        this.unsubscribe = store.onChange(() =>
             this.setState({
-                user,
-                loading: false,
-                error: false,
-            });
+                user: store.getState().user,
+                loading: store.getState().isFetchingUser,
+                error: store.getState().error,
+            })
+        );
 
-        } catch(e) {
-            this.setState({
-                loading: false,
-                error: true,
-            });
-        }
+        const user = await fetchUserContact();
+
+        store.setState({ user, isFetchingUser: false });
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     render() {
-        const { loading, user, error } = this.state;
+        const { user, loading, error } = this.state;
         const { avatar, name, phone } = user;
+        const { navigation: { navigate } } = this.props;
 
-        const navigationOptions = ({ navigation: { navigate } }) => ({
+        const navigationOptions = {
             title: 'Me',
             headerTintColor: 'white',
             headerStyle: {
                 backgroundColor: colors.blue,
             },
+            headerLeft: () => (
+                <MaterialIcons
+                    name="menu"
+                    size={24}
+                    style={{ color: 'white', marginLeft: 10 }}
+                    onPress={() => this.props.navigation.toggleDrawer()}
+                />
+            ),
             headerRight: () => (
                 <MaterialIcons
                     name="settings"
                     size={24}
                     style={{ color: 'white', marginRight: 10 }}
-                    onPress={() => { this.props.navigation.navigate("Options"); }}
+                    onPress={() => { navigate("Options"); }}
                 />
             ),
-        });
+        };
 
         this.props.navigation.setOptions(
             navigationOptions,

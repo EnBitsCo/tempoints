@@ -1,7 +1,8 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+//import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import Contacts from './screens/Contacts';
@@ -13,6 +14,10 @@ import colors from './utils/colors';
 
 const getTabBarIcon = icon => ({ tintColor }) => (
     <MaterialIcons name={icon} size={26} style={{ color: tintColor }} />
+);
+
+const getDrawerItemIcon = icon => ({ tintColor }) => (
+    <MaterialIcons name={icon} size={22} style={{ color: tintColor }} />
 );
 
 const Stack = createStackNavigator();
@@ -118,12 +123,14 @@ function UserScreens () {
     );
 }
 
-const Tab = createBottomTabNavigator();
+//const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
 export function AppNavigator() {
     return (
         <NavigationContainer>
-            <Tab.Navigator
+            {/*<Tab.Navigator*/}
+            <Drawer.Navigator
                 initialRouteName="Contacts"
                 tabBarOptions={{
                     style: {
@@ -138,28 +145,35 @@ export function AppNavigator() {
                     labelPosition: 'below-icon',
                 }}
             >
-                <Tab.Screen
+                {/*<Tab.Screen*/}
+                <Drawer.Screen
                     name="Contacts"
                     component={ContactsScreens}
                     options={{
-                        tabBarIcon: getTabBarIcon('list'),
+                        //tabBarIcon: getTabBarIcon('list'),
+                        drawerIcon: getDrawerItemIcon('list'),
                     }}
                 />
-                <Tab.Screen
+                {/*<Tab.Screen*/}
+                <Drawer.Screen
                     name="Favorites"
                     component={FavoritesScreens}
                     options={{
-                        tabBarIcon: getTabBarIcon('star'),
+                        //tabBarIcon: getTabBarIcon('star'),
+                        drawerIcon: getDrawerItemIcon('star'),
                     }}
                 />
-                <Tab.Screen
+                {/*<Tab.Screen*/}
+                <Drawer.Screen
                     name="User"
                     component={UserScreens}
                     options={{
-                        tabBarIcon: getTabBarIcon('person'),
+                        //tabBarIcon: getTabBarIcon('person'),
+                        drawerIcon: getDrawerItemIcon('person'),
                     }}
                 />
-            </Tab.Navigator>
+            {/*</Tab.Navigator>*/}
+            </Drawer.Navigator>
         </NavigationContainer>
     );
 }

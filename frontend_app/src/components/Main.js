@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Router, Scene, Actions, ActionConst } from 'react-native-router-flux';
+import { Platform, UIManager } from 'react-native';
 
 import LoginScreen from './LoginScreen';
 import SecondScreen from './SecondScreen';
@@ -13,11 +14,18 @@ import Contacts from './contactList/screens/Contacts';
 import Profile from './contactList/screens/Profile';
 import StackNavigator, { AppNavigator } from './contactList/routes';
 
+if (
+	Platform.OS === 'android' &&
+	UIManager.setLayoutAnimationEnabledExperimental
+  ) {
+	UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+
 export default class Main extends Component {
 
   render() {
-	return <AppNavigator />
-	{/*
+	{/*return <AppNavigator />*/}
+	
 	  return (
 	    <Router>
 	      <Scene key="root">
@@ -75,6 +83,5 @@ export default class Main extends Component {
 	      </Scene>
 		</Router>
 	  );
-	  */}
 	}
 }
