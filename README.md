@@ -35,3 +35,57 @@ Ref: https://stackoverflow.com/questions/56908771/typeerror-undefined-is-not-an-
 
 # Error adding geofences in Android (status code 1000)
 Ref: https://stackoverflow.com/questions/19082482/error-adding-geofences-in-android-status-code-1000/27169357#27169357
+
+# Icons are not showing up
+Ref: https://github.com/oblador/react-native-vector-icons/issues/661
+$ npx react-native link react-native-vector-icons
+
+# Git
+* Crear nuevo branch a partir de base_branch
+$ git checkout <base_branch>
+$ git branch <feature_branch>
+$ git checkout <feature_branch>
+
+* Create a branch (subbranch_of_b1) from another branch (branch1)
+$ git checkout branch1
+$ git checkout -b subbranch_of_b1 branch1
+The above will create a new branch called subbranch_of_b1 under
+the branch branch1 (note that branch1 in the above command isn't
+mandatory since the HEAD is currently pointing to it, you can
+precise it if you are on a different branch though).
+
+* Clonar dos ramas diferentes a master
+https://stackoverflow.com/questions/1615488/clone-just-the-stable-and-one-other-branch-in-git
+$ mkdir dir_name
+$ cd dir_name/
+$ git init
+$ git remote add -t banch_name_1 -t branch_name_2 origin http://Repository_URL/repository_name.git
+$ git remote
+$ git remote show origin
+$ git fetch
+$ git checkout -t origin/branch_name_1
+$ git checkout -t origin/branch_name_2
+
+* git checkout for remote branches
+$ git remote set-branches --add origin branch_name
+$ git remote
+$ git remote show origin
+$ git fetch
+$ git checkout --track origin/branch_name
+
+* Integración (merge) de los cambios de la rama base en la rama de desarrollo
+$ git checkout <feature_branch_name>
+$ git merge <master_branch_name>
+
+* Switch to another branch
+$ git checkout <existing_branch>
+
+. If the destination branch does not exist, you have to append the "-b" option,
+otherwise you won't be able to switch to that branch.
+$ git checkout -b <new_branch>
+
+* Delete branch locally
+$ git branch -d <localBranchName>
+
+* Delete branch remotely
+$ git push origin --delete <remoteBranchName>

@@ -90,7 +90,7 @@ export default class Contacts extends React.Component {
         const { navigation } = this.props;
 
         const options = {
-            title: 'Contactos',
+            title: 'Mis Tempoints',
             headerTitleAlign: 'center',
             headerLeft: () => (
                 <MaterialIcons

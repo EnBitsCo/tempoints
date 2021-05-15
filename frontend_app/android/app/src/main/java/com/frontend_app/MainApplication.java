@@ -13,6 +13,8 @@ import java.util.List;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.eddieowens.RNBoundaryPackage;
 
+import com.oblador.vectoricons.VectorIconsPackage;
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =

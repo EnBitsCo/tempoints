@@ -24,9 +24,9 @@ if (
 export default class Main extends Component {
 
   render() {
-	{/*return <AppNavigator />*/}
+	return <AppNavigator />
 	
-	  return (
+	  /*return (
 	    <Router>
 	      <Scene key="root">
 	        <Scene key="loginScreen"
@@ -82,6 +82,6 @@ export default class Main extends Component {
 	        />
 	      </Scene>
 		</Router>
-	  );
+	  );*/
 	}
 }
