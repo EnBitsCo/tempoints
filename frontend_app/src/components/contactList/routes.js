@@ -3,7 +3,6 @@ import {
     Text,
     View,
     Button,
-    FlatList,
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -179,7 +178,7 @@ const Tab = createBottomTabNavigator();
 function HomeScreen() {
     return (
         <Tab.Navigator
-            initialRouteName="Contacts"
+            initialRouteName="Mis TemPoints"
             tabBarOptions={{
                 style: {
                     backgroundColor: colors.greyLight,
@@ -199,7 +198,7 @@ function HomeScreen() {
         >
             <Tab.Screen
                 name="Mis TemPoints"
-                component={ContactsScreen}
+                component={MisTempointsScreen}
                 options={{
                     tabBarIcon: getTabBarIcon('hourglass-half'),
                 }}
@@ -220,7 +219,7 @@ function HomeScreen() {
             />
             <Tab.Screen
                 name="Mapa"
-                component={MisTempointsScreen}
+                component={ContactsScreen}
                 options={{
                     tabBarIcon: getTabBarIcon('map-o'),
                 }}

@@ -20,17 +20,16 @@ export default function ContactListItem({
             onPress={onPress}
         >
             <View style={styles.contactInfo}>
+                <View style={styles.details}>
+                    <Text style={[styles.title]}>{name}</Text>
+                    <Text style={styles.subtitle}>{phone}</Text>
+                </View>
                 <Image
                     style={styles.avatar}
                     source={{
                         uri: avatar,
                     }}
                 />
-
-                <View style={styles.details}>
-                    <Text style={[styles.title]}>{name}</Text>
-                    <Text style={styles.subtitle}>{phone}</Text>
-                </View>
             </View>
         </TouchableHighlight>
   );
@@ -59,8 +58,8 @@ const styles = StyleSheet.create({
     },
     avatar: {
         borderRadius: 22,
-        width: 44,
-        height: 44,
+        width: 100,
+        height: 100,
     },
     details: {
         justifyContent: 'center',
