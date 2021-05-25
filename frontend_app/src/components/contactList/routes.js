@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Contacts from './screens/Contacts';
 import Profile from './screens/Profile';
+import ProfileProducto from './screens/ProfileProducto';
 import Favorites from './screens/Favorites';
 import User from './screens/User';
 import Options from './screens/Options';
@@ -167,6 +168,21 @@ function MisTempointsScreen () {
                 name="Mis Tempoints"
                 component={ MisTempoints }
                 options={{ headerTitle: props => <MisTempointsTitle {...props} /> }}
+            />
+            <Stack.Screen
+                name="ProfileProducto"
+                component={ ProfileProducto }
+                /*options={( navigation ) => {
+                    const { route: { params } } = navigation;
+                    const { contact: { name } } = params;
+                    return {
+                        title: name.split(' ')[0],
+                        headerTintColor: 'white',
+                        headerStyle: {
+                            backgroundColor: colors.blue,
+                        },
+                    };
+                }}*/
             />
         </Stack.Navigator>
 

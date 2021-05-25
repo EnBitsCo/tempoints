@@ -1,6 +1,9 @@
 import uuidv4 from 'uuid/v4';
 
 import capitalize from '../utils/capitalize';
+import productos from '../../../productos.json';
+
+const productosResponse = productos;
 
 const mapContact = contact => {
   const {
@@ -16,6 +19,28 @@ const mapContact = contact => {
     email,
     favorite: Math.random() >= 0.5, // randomly generate favorite contacts
   };
+};
+
+const mapProductos = producto => {
+  const {
+    id, nombre, descripcion, urlImagen, descuento, tempoints, almacen,
+  } = producto;
+
+  return {
+    id: id,
+    nombre: `${capitalize(nombre)}`,
+    descripcion: descripcion,
+    urlImagen: urlImagen,
+    descuento: descuento,
+    tempoints: tempoints,
+    almacen: almacen,
+  };
+};
+
+export const fetchProductos = async () => {
+  productosData = productosResponse;
+
+  return productosData.results.map(mapProductos);
 };
 
 export const fetchContacts = async () => {

@@ -1,0 +1,44 @@
+{
+  "results": [
+    {
+        "id": "1", "nombre": "Camisa azul", "descripcion": "Camisa manga larga color azul",
+        "urlImagen": "https://static.dafiti.com.co/p/azzaro-6817-35612-1-product.jpg",
+        "descuento": "30%", "tempoints": "100", "almacen": "Solo camisas"
+    },
+    {
+        "id": "2", "nombre": "Zapatos negros", "descripcion": "Zapatos negros Corona",
+        "urlImagen": "https://images-na.ssl-images-amazon.com/images/I/81b6zZQEM0L.__AC_SY395_SX395_QL70_FMwebp_.jpg",
+        "descuento": "15%", "tempoints": "80", "almacen": "Solo zapatos"
+    },
+    {
+        "id": "3", "nombre": "Balón de fútbol", "descripcion": "Balón de fútbol profesional",
+        "urlImagen": "https://www.globalstd.com/wp-content/uploads/2014/06/produccion-de-brazuca-el-balon-del-mundial-de-futbol.jpg",
+        "descuento": "70%", "tempoints": "125", "almacen": "Todo en Deportes"
+    },
+    {
+        "id": "4", "nombre": "Portátil 14\"", "descripcion": "Portátil 14\" Core i7 12GB",
+        "urlImagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSQunV-GbLcxbQTns54D8nDeekSwWvGDp5oQ&usqp=CAU",
+        "descuento": "50%", "tempoints": "1500", "almacen": "El Mundo de la Tecnología"
+    },
+    {
+        "id": "5", "nombre": "Camisa azul", "descripcion": "Camisa manga larga color azul",
+        "urlImagen": "https://static.dafiti.com.co/p/azzaro-6817-35612-1-product.jpg",
+        "descuento": "30%", "tempoints": "100", "almacen": "Solo camisas"
+    },
+    {
+        "id": "6", "nombre": "Zapatos negros", "descripcion": "Zapatos negros Corona",
+        "urlImagen": "https://images-na.ssl-images-amazon.com/images/I/81b6zZQEM0L.__AC_SY395_SX395_QL70_FMwebp_.jpg",
+        "descuento": "15%", "tempoints": "80", "almacen": "Solo zapatos"
+    },
+    {
+        "id": "7", "nombre": "Balón de fútbol", "descripcion": "Balón de fútbol profesional",
+        "urlImagen": "https://www.globalstd.com/wp-content/uploads/2014/06/produccion-de-brazuca-el-balon-del-mundial-de-futbol.jpg",
+        "descuento": "70%", "tempoints": "125", "almacen": "Todo en Deportes"
+    },
+    {
+        "id": "8", "nombre": "Portátil 14\"", "descripcion": "Portátil 14\" Core i7 12GB",
+        "urlImagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSQunV-GbLcxbQTns54D8nDeekSwWvGDp5oQ&usqp=CAU",
+        "descuento": "50%", "tempoints": "1500", "almacen": "El Mundo de la Tecnología"
+    }
+  ]
+}

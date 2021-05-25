@@ -2,6 +2,7 @@ let state = {
     isFetchingContacts: true,
     isFetchingUser: true,
     contacts: [],
+    productos: [],
     user: {},
     error: false,
 };

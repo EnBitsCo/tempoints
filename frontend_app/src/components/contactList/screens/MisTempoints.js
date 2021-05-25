@@ -11,17 +11,19 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import ContactListItem from '../components/ContactListItem';
 import DetailListItem from '../components/DetailListItem';
 
-import { fetchContacts } from '../utils/api';
+import { fetchContacts, fetchProductos } from '../utils/api';
 import colors from '../utils/colors';
 import getURLParams from '../utils/getURLParams';
 import store from '../store';
 
-const keyExtractor = ({ phone }) => phone;
+const contactKeyExtractor = ({ phone }) => phone;
+const productosKeyExtractor = ({ id }) => id;
 
 export default class MisTempoints extends React.Component {
 
     state = {
         contacts: store.getState().contacts,
+        productos: store.getState().productos,
         loading: store.getState().isFetchingContacts,
         error: store.getState().error,
     };
@@ -30,14 +32,16 @@ export default class MisTempoints extends React.Component {
         this.unsubscribe = store.onChange(() =>
             this.setState({
                 contacts: store.getState().contacts,
+                productos: store.getState().productos,
                 loading: store.getState().isFetchingContacts,
                 error: store.getState().error,
             })
         );
 
         const contacts = await fetchContacts();
-
-        store.setState({ contacts, isFetchingContacts: false });
+        const productos = await fetchProductos();
+        
+        store.setState({ contacts, productos, isFetchingContacts: false });
 
         Linking.addEventListener('url', this.handleOpenUrl);
 
@@ -55,7 +59,7 @@ export default class MisTempoints extends React.Component {
         const { url } = event;
         const params = getURLParams(url);
 
-        if(params.name) {
+        /*if(params.name) {
             const queriedContact = store
                 .getState()
                 .contacts.find(contact =>
@@ -64,6 +68,17 @@ export default class MisTempoints extends React.Component {
 
             if(queriedContact) {
                 navigate('Profile', { id: queriedContact.id });
+            }
+        }*/
+        if(params.name) {
+            const queriedProducto = store
+                .getState()
+                .productos.find(producto =>
+                    producto.nombre.split(' ')[0].toLowerCase() ===
+                        params.nombre.toLowerCase());
+
+            if(queriedProducto) {
+                navigate('ProfileProducto', { id: queriedProducto.id });
             }
         }
     }
@@ -82,12 +97,29 @@ export default class MisTempoints extends React.Component {
         );
     };
 
-    render() {
-        const { contacts, loading, error } = this.state;
+    renderProducto = ({ item }) => {
+        const { navigation: { navigate } } = this.props;
+        const { id, nombre, urlImagen, tempoints } = item;
 
+        return (
+            <ContactListItem
+                name={nombre}
+                avatar={urlImagen}
+                phone={tempoints}
+                onPress={() => navigate('ProfileProducto', { producto: item })}
+            />
+        );
+    };
+
+    render() {
+        const { contacts, productos, loading, error } = this.state;
+        
         const contactsSorted = contacts.sort((a, b) =>
             a.name.localeCompare(b.name));
-
+        
+        const productosSorted = productos.sort((a, b) =>
+            a.nombre.localeCompare(b.nombre));
+        
         const { navigation } = this.props;
 
         const options = {
@@ -132,10 +164,15 @@ export default class MisTempoints extends React.Component {
                     <Text style={{ fontSize: 24, fontWeight: "bold", color: colors.greyDark, textAlign: "center", }}>Destacados</Text>
                 </View>
                 <View style={styles.container}>
-                    <FlatList
+                    {/*<FlatList
                         data={contactsSorted}
-                        keyExtractor={keyExtractor}
+                        keyExtractor={contactKeyExtractor}
                         renderItem={this.renderContact}
+                    />*/}
+                    <FlatList
+                        data={productosSorted}
+                        keyExtractor={productosKeyExtractor}
+                        renderItem={this.renderProducto}
                     />
                 </View>
             </View>
