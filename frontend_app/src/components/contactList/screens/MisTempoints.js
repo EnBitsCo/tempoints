@@ -2,7 +2,8 @@ import {
     View,
     Text,
     StyleSheet,
-    FlatList
+    FlatList,
+    Linking,
 } from 'react-native';
 import React from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -15,28 +16,43 @@ import { fetchContacts, fetchProductos } from '../utils/api';
 import colors from '../utils/colors';
 import getURLParams from '../utils/getURLParams';
 import store from '../store';
+import { millisecondsToHuman } from '../utils/TimerUtils';
 
 const contactKeyExtractor = ({ phone }) => phone;
 const productosKeyExtractor = ({ id }) => id;
 
 export default class MisTempoints extends React.Component {
-
+    _isMounted = false;
     state = {
         contacts: store.getState().contacts,
         productos: store.getState().productos,
+        elapsed: store.getState().elapsed,
         loading: store.getState().isFetchingContacts,
         error: store.getState().error,
     };
 
     async componentDidMount() {
-        this.unsubscribe = store.onChange(() =>
-            this.setState({
-                contacts: store.getState().contacts,
-                productos: store.getState().productos,
-                loading: store.getState().isFetchingContacts,
-                error: store.getState().error,
-            })
-        );
+        const TIME_INTERVAL = 1000;
+        this._isMounted = true;
+
+        this.unsubscribe = store.onChange(() => {
+            if (this._isMounted) {
+                this.setState({
+                    contacts: store.getState().contacts,
+                    productos: store.getState().productos,
+                    elapsed: store.getState().elapsed,
+                    loading: store.getState().isFetchingContacts,
+                    error: store.getState().error,
+                });
+            }
+        });
+
+        let { elapsed } = this.state;
+
+        this.intervalId = setInterval(() => {
+            elapsed = elapsed + TIME_INTERVAL;
+            this.setState({ elapsed: elapsed, })
+        }, TIME_INTERVAL);
 
         const contacts = await fetchContacts();
         const productos = await fetchProductos();
@@ -50,8 +66,10 @@ export default class MisTempoints extends React.Component {
     }
 
     componentWillUnmount() {
+        this._isMounted = false;
         Linking.removeEventListener('url', this.handleOpenUrl);
         this.unsubscribe();
+        clearInterval(this.intervalId);
     }
 
     handleOpenUrl(event) {
@@ -112,7 +130,7 @@ export default class MisTempoints extends React.Component {
     };
 
     render() {
-        const { contacts, productos, loading, error } = this.state;
+        const { contacts, productos, elapsed, loading, error } = this.state;
         
         const contactsSorted = contacts.sort((a, b) =>
             a.name.localeCompare(b.name));
@@ -139,6 +157,8 @@ export default class MisTempoints extends React.Component {
             options,
         );
 
+        const elapsedString = millisecondsToHuman(elapsed);
+
         return(
             <View style={{paddingTop: 15, }}>
                 <View style={styles.previewContainer}>
@@ -156,7 +176,7 @@ export default class MisTempoints extends React.Component {
                         </View>
                     </View>
                     <View style={styles.item, {justifyContent: "space-between", alignItems: "center", }}>
-                        <Text style={[styles.title, {alignSelf: "center", }]}>Tiempo(minutos): 35</Text>
+                        <Text style={[styles.title, {alignSelf: "center", }]}>Tiempo: {elapsedString}</Text>
                         <Text style={[styles.title, {alignSelf: "center", }]}>TemPoints: 3</Text>
                     </View>
                 </View>

@@ -11,6 +11,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Contacts from './screens/Contacts';
+import Mapa from './screens/Mapa';
 import Profile from './screens/Profile';
 import ProfileProducto from './screens/ProfileProducto';
 import Favorites from './screens/Favorites';
@@ -29,19 +30,19 @@ const getDrawerItemIcon = icon => ({ color }) => (
 
 const Stack = createStackNavigator();
 
-// Contacts
-function ContactsScreen () {
+// Mapa
+function MapaScreen () {
     return (
         <Stack.Navigator
-            initialRouteName="Contacts"
+            initialRouteName="Mapa"
             screenOptions={{
                 headerStyle: {
                     backgroundColor: colors.blue,
                 }
             }}>
             <Stack.Screen
-                name="Contacts"
-                component={ Contacts }
+                name="Mapa"
+                component={ Mapa }
                 /*options={{
                     title: 'Contacts',
                     headerTitleAlign: 'center',
@@ -235,7 +236,7 @@ function HomeScreen() {
             />
             <Tab.Screen
                 name="Mapa"
-                component={ContactsScreen}
+                component={MapaScreen}
                 options={{
                     tabBarIcon: getTabBarIcon('map-o'),
                 }}

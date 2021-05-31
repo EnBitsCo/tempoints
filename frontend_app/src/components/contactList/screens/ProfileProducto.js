@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import ContactThumbnail from '../components/ContactThumbnail';
+import ProductoThumbnail from '../components/ProductoThumbnail';
 import DetailListItem from '../components/DetailListItem';
 
 import { fetchRandomContact } from '../utils/api';
@@ -27,7 +27,7 @@ export default class Profile extends React.Component {
         const {
             urlImagen, nombre, almacen, descripcion, descuento, tempoints,
         } = producto;
-console.log("Producto: ", producto);
+
         const options = {
             //title: name.split(' ')[0],
             title: nombre,
@@ -44,7 +44,7 @@ console.log("Producto: ", producto);
         return (
             <View style={styles.container}>
                 <View style={styles.avatarSection}>
-                    <ContactThumbnail avatar={urlImagen} name={descripcion} phone={descuento} />
+                    <ProductoThumbnail avatar={urlImagen} name={descripcion} tempoints={tempoints} />
                 </View>
                 <View style={styles.detailSection}>
                     <DetailListItem icon="store" title="Almacén" subtitle={almacen} />

@@ -3,6 +3,7 @@ let state = {
     isFetchingUser: true,
     contacts: [],
     productos: [],
+    elapsed: 0,
     user: {},
     error: false,
 };
