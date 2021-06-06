@@ -17,7 +17,8 @@ import ProfileProducto from './screens/ProfileProducto';
 import Favorites from './screens/Favorites';
 import User from './screens/User';
 import Options from './screens/Options';
-import MisTempoints from './screens/MisTempoints';
+import Tempoint from './screens/Tempoint';
+import GeoTempoint from './screens/GeoTempoint';
 import colors from './utils/colors';
 
 const getTabBarIcon = icon => ({ color }) => (
@@ -34,14 +35,14 @@ const Stack = createStackNavigator();
 function MapaScreen () {
     return (
         <Stack.Navigator
-            initialRouteName="Mapa"
+            initialRouteName="Zonas"
             screenOptions={{
                 headerStyle: {
                     backgroundColor: colors.blue,
                 }
             }}>
             <Stack.Screen
-                name="Mapa"
+                name="Zonas"
                 component={ Mapa }
                 /*options={{
                     title: 'Contacts',
@@ -132,8 +133,8 @@ function UserScreen () {
     );
 }
 
-// Tempoints screen title
-function MisTempointsTitle() {
+// Tempoint screen title
+function TempointTitle() {
     return (
         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', }} >
             <Text
@@ -153,11 +154,11 @@ function MisTempointsTitle() {
     );
   }
 
-// Tempoints
-function MisTempointsScreen () {
+// Tempoint
+function TempointScreen () {
     return (
         <Stack.Navigator
-            initialRouteName="Mis Tempoints"
+            initialRouteName="Tempoint"
             mode="modal"
             screenOptions={{
                 headerStyle: {
@@ -166,9 +167,10 @@ function MisTempointsScreen () {
             }}
         >
             <Stack.Screen
-                name="Mis Tempoints"
-                component={ MisTempoints }
-                options={{ headerTitle: props => <MisTempointsTitle {...props} /> }}
+                name="Tempoint"
+                /*component={ Tempoint }*/
+                component={ GeoTempoint }
+                options={{ headerTitle: props => <TempointTitle {...props} /> }}
             />
             <Stack.Screen
                 name="ProfileProducto"
@@ -195,7 +197,7 @@ const Tab = createBottomTabNavigator();
 function HomeScreen() {
     return (
         <Tab.Navigator
-            initialRouteName="Mis TemPoints"
+            initialRouteName="TemPoint"
             tabBarOptions={{
                 style: {
                     backgroundColor: colors.greyLight,
@@ -214,17 +216,17 @@ function HomeScreen() {
             }}
         >
             <Tab.Screen
-                name="Mis TemPoints"
-                component={MisTempointsScreen}
+                name="TemPoint"
+                component={TempointScreen}
                 options={{
-                    tabBarIcon: getTabBarIcon('hourglass-half'),
+                    tabBarIcon: getTabBarIcon('map-marker'),
                 }}
             />
             <Tab.Screen
-                name="Zonas"
+                name="Mis Tempoints"
                 component={FavoritesScreen}
                 options={{
-                    tabBarIcon: getTabBarIcon('map-marker'),
+                    tabBarIcon: getTabBarIcon('hourglass-half'),
                 }}
             />
             <Tab.Screen
@@ -235,7 +237,7 @@ function HomeScreen() {
                 }}
             />
             <Tab.Screen
-                name="Mapa"
+                name="Zonas"
                 component={MapaScreen}
                 options={{
                     tabBarIcon: getTabBarIcon('map-o'),

@@ -37,7 +37,7 @@ export default class Mapa extends React.Component {
         const { navigation } = this.props;
 
         const options = {
-            title: 'Mapa',
+            title: 'Zonas TemPoints',
             headerTitleAlign: 'center',
             headerLeft: () => (
                 <MaterialIcons

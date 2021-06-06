@@ -21,7 +21,7 @@ import { millisecondsToHuman } from '../utils/TimerUtils';
 const contactKeyExtractor = ({ phone }) => phone;
 const productosKeyExtractor = ({ id }) => id;
 
-export default class MisTempoints extends React.Component {
+export default class Tempoint extends React.Component {
     _isMounted = false;
     state = {
         contacts: store.getState().contacts,
@@ -32,7 +32,7 @@ export default class MisTempoints extends React.Component {
     };
 
     async componentDidMount() {
-        const TIME_INTERVAL = 1000;
+        const TIME_INTERVAL_MILISEG = 1000;
         this._isMounted = true;
 
         this.unsubscribe = store.onChange(() => {
@@ -50,9 +50,9 @@ export default class MisTempoints extends React.Component {
         let { elapsed } = this.state;
 
         this.intervalId = setInterval(() => {
-            elapsed = elapsed + TIME_INTERVAL;
+            elapsed = elapsed + TIME_INTERVAL_MILISEG;
             this.setState({ elapsed: elapsed, })
-        }, TIME_INTERVAL);
+        }, TIME_INTERVAL_MILISEG);
 
         const contacts = await fetchContacts();
         const productos = await fetchProductos();

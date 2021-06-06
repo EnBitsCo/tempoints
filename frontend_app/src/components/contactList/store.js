@@ -3,7 +3,10 @@ let state = {
     isFetchingUser: true,
     contacts: [],
     productos: [],
+    zonasTempoints: [],
     elapsed: 0,
+    latitud: 0.0,
+    longitud: 0.0,
     user: {},
     error: false,
 };
