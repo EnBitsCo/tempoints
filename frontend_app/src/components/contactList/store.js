@@ -5,8 +5,7 @@ let state = {
     productos: [],
     zonasTempoints: [],
     elapsed: 0,
-    latitud: 0.0,
-    longitud: 0.0,
+    location: {},
     user: {},
     error: false,
 };

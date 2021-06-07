@@ -69,7 +69,7 @@ const GeoTempoint = (props) => {
     let { elapsed } = state;
     
     const location = useBackgroundGeolocationTracker();
-    console.log('useTraking latitude', location.latitude);
+    //console.log('useTraking latitude', location.latitude);
   
     const hasLocationPermission = async () => {
       // if (Platform.OS === 'ios') {
@@ -102,34 +102,9 @@ const GeoTempoint = (props) => {
             }, TIME_INTERVAL_MILISEG);
 
         if (hasLocationPermission()) {
-            console.log("hasLocationPermission: ", hasLocationPermission());
-            const BoundaryData = [
-                {
-                    //lat: 40.9736396,
-                    lat: LATITUDE,
-                    //lng: 29.0454794,
-                    lng: LONGITUDE,
-                    radius: 1500,
-                    id: 'Company',
-                },
-            ];
-            /*BoundaryData.map((boundary) => {
-                Boundary.add(boundary)
-                    .then(() => console.log('success!'))
-                    .catch(e => console.error("error :(", e));
-                console.log("Boundary added.");
-            });*/
+            //console.log("hasLocationPermission: ", hasLocationPermission());
+            store.setState({ location });
         }
-          
-        Boundary.on(Events.ENTER, (id) => {
-            console.warn('Enter Boundary ', id);
-            state.isEnter = true;
-        });
-          
-        Boundary.on(Events.EXIT, (id) => {
-            console.warn('Exit Boundary ', id);
-            state.isEnter = false;
-        });
         
         return () => {
             setIsMounted(false);
@@ -137,7 +112,7 @@ const GeoTempoint = (props) => {
             clearInterval(intervalId);
         }
 
-    }, [elapsed]);
+    }, [elapsed, location]);
 
     const elapsedString = millisecondsToHuman(elapsed);
 
@@ -173,6 +148,34 @@ const GeoTempoint = (props) => {
     props.navigation.setOptions(
         options,
     );
+
+    // Define las coordenadas geográficas de una zona TemPoints.
+    const BoundaryData = [
+        {
+            //lat: 40.9736396,
+            lat: LATITUDE,
+            //lng: 29.0454794,
+            lng: LONGITUDE,
+            radius: 1500,
+            id: 'Company',
+        },
+    ];
+    BoundaryData.map((boundary) => {
+        Boundary.add(boundary)
+            .then(() => console.debug('success!'))
+            .catch(e => console.error("error :( [You get GEOFENCE_NOT_AVAILABLE (code '1000') when user disagrees to 'Use Google' location services' in Settings -> Location -> Mode]", e));
+        console.debug("Boundary added.");
+    });
+
+    Boundary.on(Events.ENTER, (id) => {
+        console.warn('Enter Boundary ', id);
+        state.isEnter = true;
+    });
+      
+    Boundary.on(Events.EXIT, (id) => {
+        console.warn('Exit Boundary ', id);
+        state.isEnter = false;
+    });
 
     return(
         <View style={{paddingTop: 15, }}>

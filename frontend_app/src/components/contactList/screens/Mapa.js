@@ -1,9 +1,17 @@
 import React from "react"
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import MapView from 'react-native-maps';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import colors from '../utils/colors';
+import store from '../store';
+
+const { width, height } = Dimensions.get('window');
+const ASPECT_RATIO = width / height;
+const LATITUDE = 4.6428;
+const LONGITUDE = -74.1564;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 export default class Mapa extends React.Component {
 
@@ -30,10 +38,32 @@ export default class Mapa extends React.Component {
                     longitude: -74.1093
                 },  
             }
-        ]
+        ],
+        location: store.getState().location,
+    }
+
+    async componentDidMount() {
+        const TIME_INTERVAL_MILISEG = 1000;
+        this._isMounted = true;
+
+        this.unsubscribe = store.onChange(() => {
+            if (this._isMounted) {
+                this.setState({
+                    location: store.getState().location,
+                });
+            }
+        });
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
+        this.unsubscribe();
     }
 
     render() {
+        const { location } = this.state;
+        //console.log("Location latitud: ", location.latitude);
+        //console.log("Location longitud: ", location.longitude);
         const { navigation } = this.props;
 
         const options = {
@@ -58,11 +88,15 @@ export default class Mapa extends React.Component {
                 //style={styles.map}
                 style={{ ...StyleSheet.absoluteFillObject }}
                 initialRegion={{
-                    latitude: 4.6736890,
-                    longitude: -74.1436710,
-                    latitudeDelta: 0.08,
-                    longitudeDelta: 0.04,
+                    latitude: LATITUDE,
+                    longitude: LONGITUDE,
+                    latitudeDelta: LATITUDE_DELTA,
+                    longitudeDelta: LONGITUDE_DELTA
                 }}
+                showsUserLocation={true}
+                followUserLocation={true}
+                zoomEnabled={true}
+                showsScale={true}
             >
                 {/*<MapView.Marker coordinate={coordinate} />*/}
                 {this.state.markers.map(marker => (
@@ -71,6 +105,30 @@ export default class Mapa extends React.Component {
                         title={marker.title}
                     />
                 ))}
+                {/* Marker Add */}
+                <MapView.Marker
+                    coordinate={{
+                    latitude: location.latitude == null ? LATITUDE : location.latitude,
+                    longitude: location.longitude == null ? LONGITUDE_DELTA : location.longitude
+                    }}
+                    title={"Yo"}
+                    description={""}
+                    //image={require("./images/login-logo.png")}
+                    pinColor={"green"}
+                />
+                {/*Circle Draw and set radius */}
+                <MapView.Circle
+                    key={(LATITUDE + LONGITUDE).toString()}
+                    center={{
+                    latitude: LATITUDE,
+                    longitude: LONGITUDE
+                    }}
+                    radius={1500}
+                    strokeWidth={2}
+                    strokeColor={"red"}
+                    fillColor={"rgba(230,238,255,0.5)"}
+                    // onRegionChangeComplete = { this.onRegionChangeComplete.bind(this) }
+                />
             </MapView>
         );
     }

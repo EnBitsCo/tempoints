@@ -36,6 +36,10 @@ Ref: https://stackoverflow.com/questions/56908771/typeerror-undefined-is-not-an-
 # Error adding geofences in Android (status code 1000)
 Ref: https://stackoverflow.com/questions/19082482/error-adding-geofences-in-android-status-code-1000/27169357#27169357
 
+#  eddieowens/react-native-boundary Got error code 1000 #7
+You get GEOFENCE_NOT_AVAILABLE (code '1000') when user disagrees to "Use Google' location services" in Settings -> Location -> Mode
+Ref: https://github.com/eddieowens/react-native-boundary/issues/7
+
 # Icons are not showing up
 Ref: https://github.com/oblador/react-native-vector-icons/issues/661
 $ npx react-native link react-native-vector-icons
